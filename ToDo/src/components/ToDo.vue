@@ -3,7 +3,7 @@
       <div class="bg-primary card-header" style="color: white">
         <div class="row">
           <div id="headera" class="col-md-10"><font-awesome-icon icon="fa-solid fa-bars"/>FRAMEWORKS</div>
-          <button class="col-md-2 float-right btn btn-info" @click="newTask"><font-awesome-icon icon="fa-solid fa-circle-plus" inverse/>ADD</button>
+          <button class="col-md-2 float-right btn btn-info" @click="newTask" style="background-color: #2f7afa !important; border-color: #2f7afa !important; color:white"><font-awesome-icon icon="fa-solid fa-circle-plus" inverse/>ADD</button>
         </div>
       </div>
       <div class="card-body">
