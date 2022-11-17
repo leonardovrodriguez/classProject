@@ -2,8 +2,8 @@
     <div class="card">
       <div class="bg-primary card-header" style="color: white">
         <div class="row">
-          <div id="headera" class="col-md-10">Frameworks</div>
-          <button class="col-md-2 float-right" @click="newTask">Button</button>
+          <div id="headera" class="col-md-10"><font-awesome-icon icon="fa-solid fa-bars"/>FRAMEWORKS</div>
+          <button class="col-md-2 float-right btn btn-info" @click="newTask"><font-awesome-icon icon="fa-solid fa-circle-plus" inverse/>ADD</button>
         </div>
       </div>
       <div class="card-body">
@@ -23,10 +23,15 @@
               <td scope="col"> {{task.title}} </td>
               <td scope="col"> {{task.descr}} </td>
               <td scope="col"> {{task.dead}} </td>
-              <td scope="col"> {{task.taskpri}} </td>
-              <td scope="col"> {{}} </td>
+              <td scope="col"> {{task.prior}} </td>
               <!-- On check must update task -->
-              <td scope="col"> <input class="form-check-input" type="checkbox" id="flexCheckDefault" {{task.done}}> </td>
+              <td scope="col"> <input class="form-check-input" @click="toggleButton(taski)" type="checkbox" id="flexCheckDefault" v-model="task.done"> </td>
+              <td scope="col"> 
+                <div class="d-grid gap-1">
+                  <button v-if="!tasks[taski].done" @click="sendTaskInfo(taski)" class="btn btn-primary" type="button"><font-awesome-icon icon="fa-solid fa-pen-to-square"/>Update</button>
+                  <button @click="deleteTask(taski)" class="btn btn-danger" type="button"><font-awesome-icon icon="fa-solid fa-circle-xmark" />Delete</button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -46,6 +51,30 @@
       },
       addTask(data){
         this.tasks.push(data);
+        this.$emit('newAdd', "Task added successfully!");
+      },
+      toggleButton(taskIndex){
+        this.tasks[taskIndex].done = !this.tasks[taskIndex].done;
+      },
+      deleteTask(taskIndex){
+        console.log('hit');
+        this.$emit('deleteTask',taskIndex);
+        this.tasks.splice(taskIndex,1);
+      },
+      sendTaskInfo(taskIndex){
+        console.log(taskIndex);
+        let taskObject = this.tasks[taskIndex];
+        taskObject.index = taskIndex;
+        console.log(taskObject);
+        //send task w/ neccesary info !include index possibly to swap titles
+        this.$emit('updateThisTask', taskObject);
+      },
+      //recieve updated title from dialog
+      updateTask(taskInfo){
+        console.log('todo recieved task');
+        this.tasks[taskInfo.index] = taskInfo;
+        this.$emit('newAdd','Task updated successfully!')
+        console.log(this.tasks[taskInfo.index]);
       }
     },
     //global vars to ONLY Component
