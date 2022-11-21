@@ -181,7 +181,7 @@
 
 			/**Validate descr */
 			if (this.taskDescr == ``){
-				this.descrError = `Please write a decsription`;
+				this.descrError = `Please write a description`;
 				this.descrClass = `form-control is-invalid`;
 				valid = false;
 			}
